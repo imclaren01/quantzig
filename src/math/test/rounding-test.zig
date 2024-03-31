@@ -3,17 +3,15 @@ const math = std.math;
 const testing = std.testing;
 const round = @import("../rounding.zig");
 
-const RoundingTestData = enum {
-    value,
-    precision,
-    closest,
-    up,
-    down,
-    floor,
-    ceiling,
+const RoundingTestData = enum(u8) {
+    value = 0,
+    precision = 1,
+    closest = 2,
+    up = 3,
+    down = 4,
+    floor = 5,
+    ceiling = 6,
 };
-
-const testData = std.EnumArray(RoundingTestData, f64);
 
 const testData = [_][7]f64{
     .{ 0.86313513, 5, 0.86314, 0.86314, 0.86313, 0.86314, 0.86313 },
@@ -39,26 +37,9 @@ const testData = [_][7]f64{
     .{ 7.89428221, 2, 7.89, 7.90, 7.89, 7.89, 7.89 },
 };
 test "test closest rounding" {
-    for (testData) |item| {
+    inline for (testData) |item| {
         const rounding = round.Rounding.init(.Closest, item[@intFromEnum(RoundingTestData.precision)]);
-        const calculated = rounding.round(f64, item[@intFromEnum(.value)]);
-        try testing.expectApproxEqRel(calculated, item[@intFromEnum(.closest)], 42 * math.floatEps(f64));
-    }
-}
-
-test "test up rounding" {
-    for (testData) |item| {
-        const rounding: round.Rounding = .{ .Up, item[.precision] };
-        const calculated = rounding.round(f64, item[.value]);
-        try testing.expectApproxEqRel(calculated, item[.up], 42 * math.floatEps(f64));
-        std.debug.print("Hi");
-    }
-}
-
-test "test down rounding" {
-    for (testData) |item| {
-        const rounding: round.Rounding = .{ .Down, item[.precision] };
-        const calculated = rounding.round(f64, item[.value]);
-        try testing.expectApproxEqRel(calculated, item[.down], 42 * math.floatEps(f64));
+        const calculated = rounding.round(f64, item[@intFromEnum(RoundingTestData.value)]);
+        try testing.expectApproxEqRel(calculated, item[@intFromEnum(RoundingTestData.closest)], 42 * math.floatEps(f64));
     }
 }

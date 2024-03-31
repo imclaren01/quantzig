@@ -1,23 +1,19 @@
 const std = @import("std");
 
-const test_targets = [_]std.Target.Query{
-    .{}, // native
-    .{
-        .cpu_arch = .x86_64,
-        .os_tag = .linux,
-    },
-    .{
-        .cpu_arch = .aarch64,
-        .os_tag = .macos,
-    },
-};
+// const test_targets = [_]std.Target.Query{
+//     .{}, // native
+//     .{
+//         .cpu_arch = .x86_64,
+//         .os_tag = .linux,
+//     },
+//     .{
+//         .cpu_arch = .aarch64,
+//         .os_tag = .macos,
+//     },
+// };
 
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
-
-    // Standard optimization options allow the person running `zig build` to select
-    // between Debug, ReleaseSafe, ReleaseFast, and ReleaseSmall. Here we do not
-    // set a preferred release mode, allowing the user to decide how to optimize.
     const optimize = b.standardOptimizeOption(.{});
 
     const lib = b.addStaticLibrary(.{

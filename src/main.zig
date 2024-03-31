@@ -1,6 +1,9 @@
 const std = @import("std");
 const rnd = @import("math/rounding.zig");
-const c = @cImport(@cInclude("../../ql/testingQL.h"));
+const root = @import("root.zig");
+
+const math = root.math;
+const utils = root.utilities;
 
 pub fn main() !void {
     // Prints to stderr (it's a shortcut based on `std.io.getStdErr()`)
@@ -9,11 +12,6 @@ pub fn main() !void {
     // stdout is for the actual output of your application, for example if you
     // are implementing gzip, then only the compressed bytes should be sent to
     // stdout, not any debugging messages.
-}
-
-test "simple test" {
-    var list = std.ArrayList(i32).init(std.testing.allocator);
-    defer list.deinit(); // try commenting this out and see if zig detects the memory leak!
-    try list.append(42);
-    try std.testing.expectEqual(@as(i32, 42), list.pop());
+    _ = math.round.Rounding.init(.Closest, 100);
+    _ = math.abcdmathfunction.ABCDMathFunction.init(2, 3, 4, 0);
 }

@@ -1,0 +1,13 @@
+#Cached files
+zig-cache/
+# Built files 
+zig-out/
+
+# IDE-specific files
+.vscode/
+.idea/
+.nvim/
+
+# Operating System files
+.DS_Store
+Thumbs.db
